@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 24 02:22:13 2021
+
+@author: moz
+"""
+# Import csv_file
+
+import csv
+
+# Variables to store data
+
+voterID = []
+candidates = []
+
+# Open, read, and skip first row (header) of csv_file
+
+PyPoll = "//Users//moz//Desktop//PyPoll//PyPoll.csv"
+
+with open (PyPoll) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=",")
+    
+# Loop through columns in order to count/print total votes & determine winner's name
+
+    for column in csv_reader:
+       voterID.append(column[0])
+       candidates.append(column[2])
+
+       Total_Votes = (len(voterID))
+       
+print("Election Results")
+print("----------------------------")      
+print(f"Total Votes: {Total_Votes}")
+
+# Count/print and calculate percentage of votes of each candidate
+   
+Khan = int(candidates.count("Khan"))
+Correy = int(candidates.count("Correy"))
+Li = int(candidates.count("Li"))
+O_Tooley = int(candidates.count("O'Tooley"))
+   
+Khan_percentage = (Khan/Total_Votes) * 100
+Correy_percentage = (Correy/Total_Votes) * 100
+Li_percentage = (Li/Total_Votes) * 100
+O_Tooley_percentage = (O_Tooley/Total_Votes) * 100
+
+print("----------------------------")  
+print(f"Khan: {(round(Khan_percentage)):.3f}% ({Khan})")
+print(f"Correy: {(round(Correy_percentage)):.3f}% ({Correy})")
+print(f"Li: {(round(Li_percentage)):.3f}% ({Li})")
+print(f"O'Tooley: {(round(O_Tooley_percentage)):.3f}% ({O_Tooley})")
+
+# Establish/print winner's conditions
+   
+if Khan > Correy > Li > O_Tooley:
+       Winner = "Khan"
+elif Correy > Khan > Li > O_Tooley:
+       Winner = "Correy"
+elif Li > Khan > Correy > O_Tooley:
+       Winner = "Li"
+elif O_Tooley > Khan > Correy > Li:
+       Winner = "O'Tooley"
+       
+print("----------------------------") 
+print(f"Winner: {Winner}")
+print("----------------------------") 
+
