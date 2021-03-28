@@ -1,0 +1,76 @@
+#!\\usr\\bin\\env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar 22 17:38:07 2021
+
+@author: moz
+"""
+
+# Import csv_file
+
+import csv 
+PyBank = "//Users//moz//Desktop//PyBank//PyBank.csv"
+
+# Variables to count and store data
+
+Months = 0
+Profits = []
+Dates = []
+
+# Open, read, and skip first row (header) of csv_file
+
+with open(PyBank) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=",")
+    csv_header = next(csv_reader)
+    
+# Loop through columns and add data to variables 
+       
+    for row in csv_reader:
+        Months = Months + 1
+        Dates.append(row[0])
+        Profits.append(float(row[1]))
+
+# Create new variables in order to calculate change in profit
+                     
+TotalProfits = Profits[0]                  
+TotaledChanges = 0
+BigInc = 0
+BigDec = 0   
+
+# Loop through columns to consecutively calculate monthly change 
+
+for row2 in range (1, Months):
+    
+    TotalProfits = TotalProfits + Profits[row2]
+        
+    MonthlyChange = Profits[row2] - Profits[row2-1]
+    TotaledChanges = TotaledChanges + MonthlyChange
+    
+    # Use conditionals to make sure that target the biggest change
+    
+        
+    if MonthlyChange > BigInc:
+        BigInc = MonthlyChange
+        BigIncDate = Dates[row2]
+    elif MonthlyChange < BigDec:
+        BigDec = MonthlyChange
+        BigDecDate = Dates[row2]
+        
+# Print the finals results
+               
+print("Financial Analysis")
+print("----------------------------")    
+print(f"Months: {Months}") 
+print(f"Total Profits: ${(TotalProfits):.0f}")
+print(f"Average Change: ${(TotaledChanges/(Months - 1)):.2f}")
+print(f"Greatest Increase in Profits: {BigIncDate} (${BigInc:.0f})")
+print(f"Greatest Decrease in Profits: {BigDecDate} (${BigDec:.0f})")
+  
+    
+        
+                   
+
+    
+    
+
+
